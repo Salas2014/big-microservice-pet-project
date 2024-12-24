@@ -1,16 +1,11 @@
 package com.salas.catalogue.service.repo;
 
 import com.salas.catalogue.service.entity.Product;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
-import java.util.List;
-import java.util.Optional;
+@Repository
+public interface ProductRepository extends CrudRepository<Product, Integer> {
 
-public interface ProductRepository {
-    List<Product> findAllProducts();
-
-    Product save(Product product);
-
-    Optional<Product> findProductById(int productId);
-
-    void deleteById(Integer id);
+    Iterable<Product> findAllByDetailsIsLikeIgnoreCase(String filter);
 }

@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/catalogue/products")
@@ -22,8 +23,9 @@ public class ProductsController {
     }
 
     @GetMapping("list")
-    public String getProductList(Model model) {
-        model.addAttribute("products", productService.findProducts());
+    public String getProductList(Model model, @RequestParam(name = "filter", required = false) String filter) {
+        model.addAttribute("products", productService.findProducts(filter));
+        model.addAttribute("filter", filter);
         return "catalogue/products/list";
     }
 

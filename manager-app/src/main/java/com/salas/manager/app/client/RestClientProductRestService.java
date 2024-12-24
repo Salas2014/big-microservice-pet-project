@@ -25,9 +25,9 @@ public class RestClientProductRestService implements ProductRestService {
     }
 
     @Override
-    public List<Product> findProducts() {
+    public List<Product> findProducts(String filter) {
         return this.restClient.get()
-                .uri("catalogue-api/products")
+                .uri("catalogue-api/products?filter={filter}", filter)
                 .retrieve()
                 .body(PRODUCTS_TYPE_REFERENCES);
     }

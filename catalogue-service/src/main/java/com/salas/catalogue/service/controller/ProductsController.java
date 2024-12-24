@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -26,8 +25,8 @@ public class ProductsController {
     }
 
     @GetMapping
-    public List<Product> findAll() {
-        return productService.findAllProducts();
+    public Iterable<Product> findAll(@RequestParam(name = "filter", required = false) String filter) {
+        return productService.findAllProducts(filter);
     }
 
     @PostMapping
