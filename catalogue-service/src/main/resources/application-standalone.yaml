@@ -1,4 +1,10 @@
 spring:
+  security:
+    user:
+      name: catalogue_service_user
+      password: password
+      roles:
+        - SERVICE
   application:
     name: catalogue-service
   datasource:
