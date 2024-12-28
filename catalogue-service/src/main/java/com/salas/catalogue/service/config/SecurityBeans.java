@@ -17,7 +17,7 @@ public class SecurityBeans {
         return httpSecurity
                 .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> {
                     authorizationManagerRequestMatcherRegistry
-                            .requestMatchers(HttpMethod.POST, "/catalogue/products/").hasAuthority("SCOPE_edit_catalogue")
+                            .requestMatchers(HttpMethod.POST).hasAuthority("SCOPE_edit_catalogue")
                             .requestMatchers(HttpMethod.PATCH, "/catalogue/products/{productid:\\d+}").hasAuthority("SCOPE_edit_catalogue")
                             .requestMatchers(HttpMethod.DELETE, "/catalogue/products/{productid:\\d+}").hasAuthority("SCOPE_edit_catalogue")
                             .requestMatchers(HttpMethod.GET).hasAuthority("SCOPE_view_catalogue")
