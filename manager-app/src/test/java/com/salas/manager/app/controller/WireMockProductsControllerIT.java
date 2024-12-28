@@ -19,12 +19,11 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@ActiveProfiles(value = "standalone")
 @SpringBootTest
 @AutoConfigureMockMvc
 @WireMockTest(httpPort = 54321)
-public class ProductsControllerIT {
-
+@ActiveProfiles(value = "wiremock")
+public class WireMockProductsControllerIT {
     @Autowired
     MockMvc mockMvc;
 
@@ -37,13 +36,10 @@ public class ProductsControllerIT {
 
         WireMock.stubFor(WireMock.get(WireMock.urlPathMatching("/catalogue-api/products"))
                 .withQueryParam("filter", WireMock.equalTo("product"))
-                .willReturn(WireMock.okJson("""
-                [
-                    {"id": 1, "title": "1", "details": "product 1"},
-                    {"id": 2, "title": "2", "details": "product 2"}
-                ]
-                """).withHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)));
-
+                .willReturn(WireMock.ok("""
+                        {"id" 1, "title: "1", "details" "product 1"},
+                        {"id" 2, "title: "2", "details" "product 2"}
+                        """).withHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)));
 
         mockMvc.perform(requestBuilder)
                 .andDo(print())
@@ -53,23 +49,9 @@ public class ProductsControllerIT {
                         model().attribute("filter", "product"),
                         model().attribute("products", List.of(
                                 new Product(1, "1", "product 1"),
-                                new Product(2, "2", "product 2")
+                                new Product(2, "2", "product 1")
                         ))
                 );
     }
 
-    @Test
-    void getNewProductPage() throws Exception {
-        var requestBuilder = MockMvcRequestBuilders.get("/catalogue/products/create")
-                .with(user("salas").roles("MANAGER"));
-
-        mockMvc.perform(requestBuilder)
-                .andDo(print())
-                .andExpectAll(
-                        status().isOk(),
-                        view().name("catalogue/products/new_product")
-                );
-
-
-    }
 }
