@@ -5,6 +5,8 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
+import java.util.Objects;
+
 @Data
 @Entity
 @Table(schema = "catalogue", name = "t_product")
@@ -30,6 +32,18 @@ public class Product {
         this.id = id;
         this.title = title;
         this.details = details;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return Objects.equals(id, product.id) && Objects.equals(title, product.title) && Objects.equals(details, product.details);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, title, details);
     }
 
     public Integer getId() {

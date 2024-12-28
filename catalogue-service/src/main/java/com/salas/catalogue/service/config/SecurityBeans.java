@@ -12,6 +12,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class SecurityBeans {
 
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
@@ -20,7 +21,10 @@ public class SecurityBeans {
                             .requestMatchers(HttpMethod.POST).hasAuthority("SCOPE_edit_catalogue")
                             .requestMatchers(HttpMethod.PATCH, "/catalogue/products/{productid:\\d+}").hasAuthority("SCOPE_edit_catalogue")
                             .requestMatchers(HttpMethod.DELETE, "/catalogue/products/{productid:\\d+}").hasAuthority("SCOPE_edit_catalogue")
-                            .requestMatchers(HttpMethod.GET).hasAuthority("SCOPE_view_catalogue")
+                            .requestMatchers(HttpMethod.GET).permitAll()
+
+//                            .hasAuthority("SCOPE_view_catalogue")
+
                             .anyRequest().denyAll();
                 })
                 .csrf(CsrfConfigurer::disable)
