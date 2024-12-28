@@ -56,6 +56,9 @@ public class ProductsControllerIT {
                                 new Product(2, "2", "product 2")
                         ))
                 );
+
+        WireMock.verify(WireMock.getRequestedFor(WireMock.urlPathMatching("/catalogue-api/products"))
+                .withQueryParam("filter", WireMock.equalTo("product")));
     }
 
     @Test
