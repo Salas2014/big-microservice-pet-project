@@ -2,9 +2,12 @@ package com.salas.customerapp.service;
 
 import com.salas.customerapp.entity.Product;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import java.util.NoSuchElementException;
 
 @RequiredArgsConstructor
 public class WebClientProductsClient implements ProductsClient {
@@ -24,6 +27,7 @@ public class WebClientProductsClient implements ProductsClient {
         return webClient.get()
                 .uri("/catalogue-api/products/{productId}", id)
                 .retrieve()
-                .bodyToMono(Product.class);
+                .bodyToMono(Product.class)
+                .onErrorComplete(NoSuchElementException.class);
     }
 }

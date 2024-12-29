@@ -5,11 +5,16 @@ import com.salas.customerapp.payload.NewProductReviewPayload;
 import com.salas.customerapp.service.FavouriteProductsService;
 import com.salas.customerapp.service.ProductReviewService;
 import com.salas.customerapp.service.ProductsClient;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
+
+import java.util.NoSuchElementException;
 
 @Controller
 @RequiredArgsConstructor
@@ -22,7 +27,8 @@ public class ProductController {
 
     @ModelAttribute(name = "product", binding = false)
     public Mono<Product> findProduct(@PathVariable("productId") int id) {
-        return productsClient.findProductBhyId(id);
+        return productsClient.findProductBhyId(id)
+                .switchIfEmpty(Mono.error(new NoSuchElementException("customer.product.error.not_found")));
     }
 
     @GetMapping
@@ -55,8 +61,27 @@ public class ProductController {
     }
 
     @PostMapping("/create_review")
-    public Mono<String> createReview(@PathVariable("productId") int productId, NewProductReviewPayload payload) {
-        return productReviewService.createProductReview(productId, payload.rating(), payload.review())
-                .thenReturn("redirect:/customer/products/%d".formatted(productId));
+    public Mono<String> createReview(@PathVariable("productId") int productId, @Valid NewProductReviewPayload payload,
+                                     BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("isFavourite", false);
+            model.addAttribute("payload", payload);
+            model.addAttribute("errors", bindingResult.getAllErrors().stream()
+                    .map(ObjectError::getDefaultMessage)
+                    .toList());
+            return favouriteProductsService.findFavouritesProductByProduct(productId)
+                    .doOnNext(favouriteProduct -> model.addAttribute("isFavourite", true))
+                    .thenReturn("customer/products/product");
+        } else {
+            return productReviewService.createProductReview(productId, payload.rating(), payload.review())
+                    .thenReturn("redirect:/customer/products/%d".formatted(productId));
+
+        }
+    }
+
+    @ExceptionHandler(NoSuchElementException.class)
+    public String handleNoSuchElementException(Model model, NoSuchElementException exception) {
+        model.addAttribute("error", exception.getMessage());
+        return "errors/404";
     }
 }

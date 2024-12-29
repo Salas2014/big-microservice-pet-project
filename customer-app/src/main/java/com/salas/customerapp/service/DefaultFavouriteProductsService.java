@@ -4,6 +4,7 @@ import com.salas.customerapp.entity.FavouriteProduct;
 import com.salas.customerapp.repository.FavouriteProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.UUID;
@@ -27,5 +28,10 @@ public class DefaultFavouriteProductsService implements FavouriteProductsService
     @Override
     public Mono<FavouriteProduct> findFavouritesProductByProduct(int productId) {
         return favouriteProductRepository.findByProductId(productId);
+    }
+
+    @Override
+    public Flux<FavouriteProduct> findAllFavouritesProducts() {
+        return favouriteProductRepository.findAll();
     }
 }

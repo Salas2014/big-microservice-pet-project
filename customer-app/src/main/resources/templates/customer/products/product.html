@@ -24,6 +24,13 @@
 
 <h2>Reviews</h2>
 
+<div data-th-if="${errors}">
+    <h3></h3>
+    <ul>
+        <li data-th-each="error : ${errors}" data-th-text="${error}"></li>
+    </ul>
+</div>
+
 <form method="post" data-th-action="@{/customer/products/{productId}/create_review(productId=${product.id})}">
 
     <label> <input type="radio" name="rating" value="1">1</label>
