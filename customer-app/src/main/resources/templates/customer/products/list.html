@@ -9,14 +9,18 @@
 </head>
 <body>
 <h1>Products</h1>
-
+<form>
+    <label>Filer: <input type="text" name="filter" data-th-value="${filter}">
+        <button type="submit">GO!</button>
+    </label>
+</form>
 <ul>
     <li data-th-each="product : ${products}">
         <a data-th-text="${product.title}"
-           data-th-href="@{/custome/products/{productId}(productid=${product.id})}"></a>
-
+           data-th-href="@{/customer/products/{productId}(productId=${product.id})}"></a>
         <p data-th-text="${product.details}"></p>
     </li>
 </ul>
+
 </body>
 </html>
