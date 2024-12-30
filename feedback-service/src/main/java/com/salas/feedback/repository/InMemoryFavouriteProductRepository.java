@@ -1,6 +1,6 @@
-package com.salas.customerapp.repository;
+package com.salas.feedback.repository;
 
-import com.salas.customerapp.entity.FavouriteProduct;
+import com.salas.feedback.entity.FavouriteProduct;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;

@@ -1,6 +1,6 @@
-package com.salas.customerapp.repository;
+package com.salas.feedback.repository;
 
-import com.salas.customerapp.entity.ProductReview;
+import com.salas.feedback.entity.ProductReview;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 

@@ -1,7 +1,7 @@
-package com.salas.customerapp.service;
+package com.salas.feedback.service;
 
-import com.salas.customerapp.entity.FavouriteProduct;
-import com.salas.customerapp.repository.FavouriteProductRepository;
+import com.salas.feedback.entity.FavouriteProduct;
+import com.salas.feedback.repository.FavouriteProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;

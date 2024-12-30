@@ -1,7 +1,7 @@
-package com.salas.customerapp.service;
+package com.salas.feedback.service;
 
-import com.salas.customerapp.entity.ProductReview;
-import com.salas.customerapp.repository.ProductReviewRepository;
+import com.salas.feedback.entity.ProductReview;
+import com.salas.feedback.repository.ProductReviewRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;

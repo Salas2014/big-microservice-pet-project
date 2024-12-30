@@ -1,6 +1,6 @@
-package com.salas.customerapp.service;
+package com.salas.feedback.service;
 
-import com.salas.customerapp.entity.FavouriteProduct;
+import com.salas.feedback.entity.FavouriteProduct;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
