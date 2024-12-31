@@ -19,4 +19,20 @@ public class ProductReview {
         this.rating = rating;
         this.review = review;
     }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public int getProductId() {
+        return productId;
+    }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public String getReview() {
+        return review;
+    }
 }

@@ -4,7 +4,6 @@ import com.salas.feedback.controller.payload.NewProductReviewPayload;
 import com.salas.feedback.entity.ProductReview;
 import com.salas.feedback.service.ProductReviewService;
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -13,10 +12,13 @@ import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping("feedback-api/product-reviews")
-@RequiredArgsConstructor
 public class ProductReviewsRestController {
 
     private final ProductReviewService service;
+
+    public ProductReviewsRestController(ProductReviewService service) {
+        this.service = service;
+    }
 
     @GetMapping("/by-product-id/{productId:\\d+}")
     public Flux<ProductReview> findProductReviewsByProductId(@PathVariable("productId") int productId) {

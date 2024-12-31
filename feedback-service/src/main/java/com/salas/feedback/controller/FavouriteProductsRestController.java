@@ -13,10 +13,13 @@ import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping("feedback-api/favourite-products")
-@RequiredArgsConstructor
 public class FavouriteProductsRestController {
 
     private final FavouriteProductsService service;
+
+    public FavouriteProductsRestController(FavouriteProductsService service) {
+        this.service = service;
+    }
 
     @GetMapping
     public Flux<FavouriteProduct> findAllFavoriteProducts() {

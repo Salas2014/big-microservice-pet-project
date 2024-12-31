@@ -16,5 +16,13 @@ public class FavouriteProduct {
         this.uuid = uuid;
         this.productId = productId;
     }
+
+    public UUID getUuid() {
+        return uuid;
+    }
+
+    public int getProductId() {
+        return productId;
+    }
 }
 

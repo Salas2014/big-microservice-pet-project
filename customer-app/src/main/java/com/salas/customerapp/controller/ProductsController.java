@@ -1,7 +1,7 @@
 package com.salas.customerapp.controller;
 
+import com.salas.customerapp.client.FavouriteProductsClient;
 import com.salas.customerapp.entity.FavouriteProduct;
-import com.salas.customerapp.service.FavouriteProductsService;
 import com.salas.customerapp.service.ProductsClient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -17,7 +17,7 @@ import reactor.core.publisher.Mono;
 public class ProductsController {
 
     private final ProductsClient productsClient;
-    private final FavouriteProductsService favouriteProductsService;
+    private final FavouriteProductsClient favouriteProductsClient;
 
     @GetMapping("/list")
     public Mono<String> getProductsListPage(Model model, @RequestParam(name = "filter", required = false) String filter) {
@@ -30,8 +30,8 @@ public class ProductsController {
 
     @GetMapping("/favourites")
     public Mono<String> getFavouritesPage(Model model, @RequestParam(name = "filter", required = false) String filter) {
-        return favouriteProductsService.findAllFavouritesProducts()
-                .map(FavouriteProduct::getProductId)
+        return favouriteProductsClient.findAllFavouritesProducts()
+                .map(FavouriteProduct::productId)
                 .collectList()
                 .flatMap(favouriteProducts -> productsClient.findProducts(filter).filter(
                                 product -> favouriteProducts.contains(product.id()))

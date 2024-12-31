@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: feedback-service
+
+
+server:
+  port: 8085
