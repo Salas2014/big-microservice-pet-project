@@ -27,7 +27,7 @@ public class ProductController {
 
     @ModelAttribute(name = "product", binding = false)
     public Mono<Product> findProduct(@PathVariable("productId") int id) {
-        return productsClient.findProductBhyId(id)
+        return productsClient.findProductById(id)
                 .switchIfEmpty(Mono.error(new NoSuchElementException("customer.product.error.not_found")));
     }
 

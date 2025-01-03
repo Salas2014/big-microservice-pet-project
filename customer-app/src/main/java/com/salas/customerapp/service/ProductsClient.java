@@ -8,5 +8,5 @@ public interface ProductsClient {
 
     Flux<Product> findProducts(String filter);
 
-    Mono<Product> findProductBhyId(int id);
+    Mono<Product> findProductById(int id);
 }

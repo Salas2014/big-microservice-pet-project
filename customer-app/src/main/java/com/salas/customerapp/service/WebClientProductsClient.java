@@ -23,7 +23,7 @@ public class WebClientProductsClient implements ProductsClient {
     }
 
     @Override
-    public Mono<Product> findProductBhyId(int id) {
+    public Mono<Product> findProductById(int id) {
         return webClient.get()
                 .uri("/catalogue-api/products/{productId}", id)
                 .retrieve()
