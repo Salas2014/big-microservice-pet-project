@@ -24,6 +24,6 @@ public class DefaultProductReviewService implements ProductReviewService {
 
     @Override
     public Flux<ProductReview> findReviewsByProductId(int productId) {
-        return productReviewRepository.find(productId);
+        return productReviewRepository.findAllByProductId(productId);
     }
 }

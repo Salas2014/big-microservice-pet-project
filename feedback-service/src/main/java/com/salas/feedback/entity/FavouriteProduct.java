@@ -1,11 +1,13 @@
 package com.salas.feedback.entity;
 
 import lombok.Data;
+import org.springframework.data.annotation.Id;
 
 import java.util.UUID;
 
 @Data
 public class FavouriteProduct {
+    @Id
     private UUID uuid;
     private int productId;
 
