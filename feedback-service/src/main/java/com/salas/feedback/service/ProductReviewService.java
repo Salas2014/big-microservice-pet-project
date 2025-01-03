@@ -8,5 +8,5 @@ public interface ProductReviewService {
 
     Flux<ProductReview> findReviewsByProductId(int productId);
 
-    Mono<ProductReview> createProductReview(int productId, int rating, String review);
+    Mono<ProductReview> createProductReview(int productId, int rating, String review, String userId);
 }
