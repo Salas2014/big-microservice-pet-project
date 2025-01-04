@@ -32,8 +32,7 @@ public class ProductReviewsRestController {
             @Valid @RequestBody Mono<NewProductReviewPayload> payloadMono, UriComponentsBuilder uriComponentsBuilder) {
         return authenticationTokenMono.flatMap(token ->
 
-                        payloadMono
-                                .flatMap(payload -> service.createProductReview(
+                        payloadMono.flatMap(payload -> service.createProductReview(
                                         payload.productId(), payload.rating(), payload.review(), token.getToken().getSubject())))
                 .map(productReview -> ResponseEntity
                         .created(uriComponentsBuilder.replacePath("feedback-api/product-reviews/{id}")
