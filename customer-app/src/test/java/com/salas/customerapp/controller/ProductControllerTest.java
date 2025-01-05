@@ -59,8 +59,7 @@ class ProductControllerTest {
         doReturn(Mono.empty()).when(productsClient).findProductById(1);
 
         StepVerifier.create(productController.findProduct(1))
-                .expectErrorMatches(exception ->
-                        exception instanceof NoSuchElementException e
+                .expectErrorMatches(exception -> exception instanceof NoSuchElementException e
                                 && e.getMessage().equals("customer.product.error.not_found"))
                         .verify();
 

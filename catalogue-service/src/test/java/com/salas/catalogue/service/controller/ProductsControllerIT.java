@@ -1,16 +1,25 @@
 package com.salas.catalogue.service.controller;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.restdocs.RestDocumentationExtension;
+import org.springframework.restdocs.operation.preprocess.HeadersModifyingOperationPreprocessor;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessResponse;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
+import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
+import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.jwt;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -18,6 +27,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Transactional
 @SpringBootTest
 @AutoConfigureMockMvc
+@AutoConfigureRestDocs
+@ExtendWith(RestDocumentationExtension.class)
 class ProductsControllerIT {
     @Autowired
     MockMvc mockMvc;
@@ -39,7 +50,13 @@ class ProductsControllerIT {
                                  {"id":  1, "title": "Product 1", "details":  "detail 1"},
                                  {"id":  3, "title": "Product 3", "details":  "detail 3"}
                                 ]
-                                """));
+                                """))
+                .andDo(document("catalogue/products/find_all", preprocessResponse(prettyPrint(), new HeadersModifyingOperationPreprocessor().remove("Vary")),
+                        responseFields(
+                                fieldWithPath("[].id").description("Идентификатор товара").type(int.class),
+                                fieldWithPath("[].title").description("Название товара").type(String.class),
+                                fieldWithPath("[].details").description("Описание товара").type(String.class)
+                        )));
     }
 
     @Test
