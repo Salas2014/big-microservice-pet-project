@@ -1,4 +1,12 @@
 spring:
+  boot:
+    admin:
+      client:
+        enabled: true
+        instance:
+          name: feedback-service
+          service-host-type: ip
+        url: http://localhost:8888
   application:
     name: feedback-service
   data:
@@ -14,3 +22,14 @@ spring:
 
 server:
   port: 8085
+
+management:
+  health:
+    readinessstate:
+      enabled: true
+    livenessstate:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: '*'

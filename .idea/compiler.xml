@@ -6,6 +6,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="admin-server" />
         <module name="customer-app" />
       </profile>
       <profile name="Annotation profile for manager-app" enabled="true">
@@ -26,6 +27,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="admin-server" options="-parameters" />
       <module name="catalogue-service" options="-parameters" />
       <module name="customer-app" options="-parameters" />
       <module name="feadback-service" options="-parameters" />

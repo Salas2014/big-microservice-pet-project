@@ -21,6 +21,7 @@ public class SecurityBeans {
                             .requestMatchers(HttpMethod.POST).hasAuthority("SCOPE_edit_catalogue")
                             .requestMatchers(HttpMethod.PATCH, "/catalogue/products/{productid:\\d+}").hasAuthority("SCOPE_edit_catalogue")
                             .requestMatchers(HttpMethod.DELETE, "/catalogue/products/{productid:\\d+}").hasAuthority("SCOPE_edit_catalogue")
+                            .requestMatchers("/actuator/**").permitAll()
                             .requestMatchers(HttpMethod.GET).permitAll()
 
 //                            .hasAuthority("SCOPE_view_catalogue")

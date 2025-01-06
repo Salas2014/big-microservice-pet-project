@@ -17,7 +17,9 @@ public class SecurityBeans {
     @Bean
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity security) {
         return security
-                .authorizeExchange(configure -> configure.anyExchange().authenticated())
+                .authorizeExchange(configure -> configure
+                        .pathMatchers("/actuator/**").permitAll()
+                        .anyExchange().authenticated())
                 .csrf(ServerHttpSecurity.CsrfSpec::disable)
                 .securityContextRepository(NoOpServerSecurityContextRepository.getInstance())
                 .oauth2ResourceServer(customizer -> customizer.jwt(Customizer.withDefaults()))

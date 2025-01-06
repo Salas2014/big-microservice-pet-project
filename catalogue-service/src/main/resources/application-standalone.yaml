@@ -1,4 +1,13 @@
 spring:
+  boot:
+    admin:
+      client:
+        enabled: true
+        instance:
+          name: catalogue-service
+          service-host-type: ip
+        url: http://localhost:8888
+
   security:
 #    user:
 #      name: catalogue_service_user
@@ -30,4 +39,15 @@ server:
 logging:
   level:
     sql: info
+
+management:
+  health:
+    readinessstate:
+      enabled: true
+    livenessstate:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: '*'
 

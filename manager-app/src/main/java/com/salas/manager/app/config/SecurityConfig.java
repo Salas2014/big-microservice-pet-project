@@ -24,7 +24,9 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
                 .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry ->
-                        authorizationManagerRequestMatcherRegistry.anyRequest().hasRole("MANAGER"))
+                        authorizationManagerRequestMatcherRegistry
+                                .requestMatchers("/actuator/**").permitAll()
+                                .anyRequest().hasRole("MANAGER"))
                 .oauth2Login(Customizer.withDefaults())
                 .oauth2Client(Customizer.withDefaults())
                 .build();

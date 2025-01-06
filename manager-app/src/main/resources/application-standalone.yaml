@@ -1,4 +1,14 @@
 spring:
+  boot:
+    admin:
+      client:
+        enabled: true
+        instance:
+          name: manager-service
+          service-host-type: ip
+        url: http://localhost:8888
+
+
   application:
     name: manager-app
   datasource:
@@ -27,3 +37,15 @@ services:
   catalogue:
     uri: http://localhost:8081
     registration-id: keycloak
+
+
+management:
+  health:
+    readinessstate:
+      enabled: true
+    livenessstate:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: '*'

@@ -1,4 +1,12 @@
 spring:
+  boot:
+    admin:
+      client:
+        enabled: true
+        instance:
+          name: customer-service
+          service-host-type: ip
+        url: http://localhost:8888
   application:
     name: customer-app
 
@@ -26,3 +34,16 @@ services:
 
 server:
   port: 8084
+
+management:
+  health:
+    readinessstate:
+      enabled: true
+    livenessstate:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+

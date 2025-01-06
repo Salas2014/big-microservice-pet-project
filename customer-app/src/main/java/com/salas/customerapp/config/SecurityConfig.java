@@ -12,7 +12,10 @@ public class SecurityConfig {
     @Bean
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity httpSecurity) {
         return httpSecurity
-                .authorizeExchange(customizer -> customizer.anyExchange().authenticated())
+                .authorizeExchange(customizer ->
+                        customizer
+                                .pathMatchers("/actuator/**").permitAll()
+                                .anyExchange().authenticated())
                 .csrf(ServerHttpSecurity.CsrfSpec::disable)
                 .oauth2Login(Customizer.withDefaults())
                 .oauth2Client(Customizer.withDefaults())
