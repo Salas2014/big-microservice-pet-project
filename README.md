@@ -17,3 +17,8 @@ curl -X POST http://localhost:8888/instances \
 "healthUrl": "http://19[SecurityConfig.java](customer-app/src/main/java/com/salas/customerapp/config/SecurityConfig.java)2.168.0.103:8084/actuator/health",
 "serviceUrl": "http://192.168.0.103:8084/"
 }'
+
+
+
+
+docker run --name selmag-metrics -p 8428:8428 -v C:\Users\salas\IdeaProjects\selmag-project\config\victoria-metrics\promscrape.yaml:/promscrape.yaml victoriametrics/victoria-metrics:v1.93.12 --promscrape.config=/promscrape.yaml
