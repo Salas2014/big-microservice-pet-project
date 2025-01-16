@@ -13,9 +13,9 @@ curl -X POST http://localhost:8888/instances \
 -H "Content-Type: application/json" \
 -d '{
 "name": "customer-service",
-"managementUrl": "http://192.168.0.103:8084/actuator",
-"healthUrl": "http://19[SecurityConfig.java](customer-app/src/main/java/com/salas/customerapp/config/SecurityConfig.java)2.168.0.103:8084/actuator/health",
-"serviceUrl": "http://192.168.0.103:8084/"
+"managementUrl": "http://192.168.0.104:8084/actuator",
+"healthUrl": "http://19[SecurityConfig.java](customer-app/src/main/java/com/salas/customerapp/config/SecurityConfig.java)2.168.0.104:8084/actuator/health",
+"serviceUrl": "http://192.168.0.104:8084/"
 }'
 
 
