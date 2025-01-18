@@ -9,21 +9,21 @@ spring:
         url: http://localhost:8888
   application:
     name: customer-app
-
-  security:
-    oauth2:
-      client:
-        provider:
-          keycloak:
-            issuer-uri: http://localhost:8082/realms/selmag
-            user-name-attribute: preferred_username
-        registration:
-          keycloak:
-            client-id: customer-app
-            client-secret: ldOv49attIsQtJygyz22WgAEcYUKlXOQ
-            scope:
-              - openid
-              - view_catalogue
+#
+#  security:
+#    oauth2:
+#      client:
+#        provider:
+#          keycloak:
+#            issuer-uri: http://localhost:8082/realms/selmag
+#            user-name-attribute: preferred_username
+#        registration:
+#          keycloak:
+#            client-id: customer-app
+#            client-secret: ldOv49attIsQtJygyz22WgAEcYUKlXOQ
+#            scope:
+#              - openid
+#              - view_catalogue
 
 
 services:

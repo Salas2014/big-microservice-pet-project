@@ -15,22 +15,22 @@ spring:
     username: manager
     url: jdbc:postgresql://localhost:5433/manager
     password: password
-  security:
-    oauth2:
-      client:
-        provider:
-          keycloak:
-            issuer-uri: http://localhost:8082/realms/selmag
-            user-name-attribute: preferred_username
-        registration:
-          keycloak:
-            client-id: manager-app
-            client-secret: 0nTCxTeSBDKDniJkdlAKn7JEJGPBcQtB
-            scope:
-                - openid
-                - microprofile-jwt
-                - view_catalogue
-                - edit_catalogue
+#  security:
+#    oauth2:
+#      client:
+#        provider:
+#          keycloak:
+#            issuer-uri: http://localhost:8082/realms/selmag
+#            user-name-attribute: preferred_username
+#        registration:
+#          keycloak:
+#            client-id: manager-app
+#            client-secret: 0nTCxTeSBDKDniJkdlAKn7JEJGPBcQtB
+#            scope:
+#                - openid
+#                - microprofile-jwt
+#                - view_catalogue
+#                - edit_catalogue
 
 
 services:
