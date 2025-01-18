@@ -1,11 +1,26 @@
 scrape_configs:
   - job_name: selmag_admin_service
     static_configs:
-      - targets: ["http://192.168.0.104:8888"]
+      - targets: [ "http://192.168.0.104:8888" ]
     metrics_path: /actuator/prometheus
 
   - job_name: catalog_service
     static_configs:
-      - targets: ["http://192.168.0.104:8081"]
+      - targets: [ "http://192.168.0.104:8081" ]
+    metrics_path: /actuator/prometheus
+
+  - job_name: customer_service
+    static_configs:
+      - targets: [ "http://192.168.0.104:8084" ]
+    metrics_path: /actuator/prometheus
+
+  - job_name: feedback_service
+    static_configs:
+      - targets: [ "http://192.168.0.104:8085" ]
+    metrics_path: /actuator/prometheus
+
+  - job_name: manager_service
+    static_configs:
+      - targets: [ "http://192.168.0.104:8080" ]
     metrics_path: /actuator/prometheus
 
