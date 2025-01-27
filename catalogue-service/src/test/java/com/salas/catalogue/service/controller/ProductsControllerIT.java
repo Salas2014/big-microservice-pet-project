@@ -20,7 +20,6 @@ import static org.springframework.restdocs.operation.preprocess.Preprocessors.pr
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.jwt;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -37,8 +36,7 @@ class ProductsControllerIT {
     @Sql("/sql/products.sql")
     void findProducts() throws Exception {
         var requestBuilder = MockMvcRequestBuilders.get("/catalogue-api/products")
-                .param("filter", "detail")
-                .with(jwt().jwt(builder -> builder.claim("scope", "view_catalogue")));
+                .param("filter", "detail");
 
         mockMvc.perform(requestBuilder)
                 .andDo(print())
@@ -65,8 +63,7 @@ class ProductsControllerIT {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("""
                         { "title": "Product 1", "details":  "detail 1"}
-                        """)
-                .with(jwt().jwt(builder -> builder.claim("scope", "edit_catalogue")));
+                        """);
 
 
         mockMvc.perform(requestBuilder)
@@ -87,8 +84,7 @@ class ProductsControllerIT {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("""
                         { "title": "Product 1", "details":  "detail 1"}
-                        """)
-                .with(jwt().jwt(builder -> builder.claim("scope", "view_catalogue")));
+                        """);
 
 
         mockMvc.perform(requestBuilder)

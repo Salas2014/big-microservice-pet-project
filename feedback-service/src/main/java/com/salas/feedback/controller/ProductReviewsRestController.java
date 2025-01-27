@@ -5,7 +5,6 @@ import com.salas.feedback.entity.ProductReview;
 import com.salas.feedback.service.ProductReviewService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 import reactor.core.publisher.Flux;
@@ -28,15 +27,14 @@ public class ProductReviewsRestController {
 
     @PostMapping
     public Mono<ResponseEntity<ProductReview>> createProductReview(
-            Mono<JwtAuthenticationToken> authenticationTokenMono,
             @Valid @RequestBody Mono<NewProductReviewPayload> payloadMono, UriComponentsBuilder uriComponentsBuilder) {
-        return authenticationTokenMono.flatMap(token ->
+        return
 
-                        payloadMono.flatMap(payload -> service.createProductReview(
-                                        payload.productId(), payload.rating(), payload.review(), token.getToken().getSubject())))
-                .map(productReview -> ResponseEntity
-                        .created(uriComponentsBuilder.replacePath("feedback-api/product-reviews/{id}")
-                                .build(productReview.getId()))
-                        .body(productReview));
+                payloadMono.flatMap(payload -> service.createProductReview(
+                                payload.productId(), payload.rating(), payload.review(), ""))
+                        .map(productReview -> ResponseEntity
+                                .created(uriComponentsBuilder.replacePath("feedback-api/product-reviews/{id}")
+                                        .build(productReview.getId()))
+                                .body(productReview));
     }
 }

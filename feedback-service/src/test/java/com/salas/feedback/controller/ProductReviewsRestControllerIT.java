@@ -21,8 +21,6 @@ import reactor.core.publisher.Mono;
 import java.util.List;
 import java.util.UUID;
 
-import static org.springframework.security.test.web.reactive.server.SecurityMockServerConfigurers.mockJwt;
-
 @SpringBootTest
 @AutoConfigureWebTestClient
 @Import(TestBeans.class)
@@ -53,7 +51,7 @@ class ProductReviewsRestControllerIT {
     @Test
     void findProductReviewsByProductId() {
 
-        webTestClient.mutateWith(mockJwt())
+        webTestClient
                 .mutate().filter(ExchangeFilterFunction.ofRequestProcessor(clientRequest -> {
                     log.info("===== Start Request =====");
                     log.info("{} {}", clientRequest.method(), clientRequest.url());
@@ -78,7 +76,7 @@ class ProductReviewsRestControllerIT {
     void createProductReview_RequestIsValid_ReturnsCreatedProductReview() {
 
         webTestClient
-                .mutateWith(mockJwt().jwt(builder -> builder.subject("user-tester")))
+
                 .post()
                 .uri("/feedback-api/product-reviews")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -107,7 +105,6 @@ class ProductReviewsRestControllerIT {
     void createProductReview_RequestIsNotValid() {
 
         webTestClient
-                .mutateWith(mockJwt().jwt(builder -> builder.subject("user-tester")))
                 .post()
                 .uri("/feedback-api/product-reviews")
                 .contentType(MediaType.APPLICATION_JSON)
