@@ -1,0 +1,36 @@
+spring:
+  application:
+    name: admin-server
+#  security:
+#    oauth2:
+#      client:
+#        provider:
+#          keycloak:
+#            issuer-uri: http://localhost:8082/realms/selmag
+#        registration:
+#          keycloak:
+#            authorization-grant-type: client-credentials
+#            scope:
+#              - metrics
+#            client-id: admin-service
+#            client-secret: exR4LqTnkRn22njieihawfmbsorogihF
+server:
+  port: 8888
+management:
+  metrics:
+    tags:
+      application: ${spring.application.name}
+  endpoints:
+    web:
+      exposure:
+        include:
+          - health
+          - prometheus
+
+
+
+
+
+
+
+
