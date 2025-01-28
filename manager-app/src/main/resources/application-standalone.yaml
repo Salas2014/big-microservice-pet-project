@@ -40,6 +40,9 @@ services:
 
 
 management:
+  metrics:
+    tags:
+      application: ${spring.application.name}
   health:
     readinessstate:
       enabled: true
